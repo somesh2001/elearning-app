@@ -1,10 +1,12 @@
 import supabase from "@/supabaseClient";
 import { useRouter } from "next/router";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
+import AuthContext from "../store/auth-context";
 import styles from "./LoginForm.module.css";
 
 const LoginForm = () => {
   const router = useRouter();
+  const authCtx = useContext(AuthContext);
 
   const [formEmailValid, setEmailIsValid] = useState(true);
   const [formPasswordValid, setPasswordIsValid] = useState(true);
@@ -19,6 +21,7 @@ const LoginForm = () => {
     const enteredEmailValue = emailRef.current.value;
     const enteredPasswordValue = passwordRef.current.value;
 
+    /**********************Validating form***************************** */
     const emailRegex =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const passwordRegex =
@@ -38,24 +41,46 @@ const LoginForm = () => {
       setPasswordIsValid(true);
     }
 
+    /**********************Validating form***************************** */
+
     const { data, error } = await supabase.auth.signInWithPassword({
       email: enteredEmailValue,
       password: enteredPasswordValue,
     });
 
-    if (data.user.user_metadata.type === "student") {
-      router.replace("/home");
-    }
-    if (data.user.user_metadata.type === "instructor") {
-      router.replace("/Instructor");
-    }
     if (error) {
       return;
     }
-    console.log(data);
 
+    const userType = data.user.user_metadata.type;
+
+    console.log("type: ", userType);
+
+    if (userType === "student") {
+      router.replace("/home");
+    }
+    if (userType === "instructor") {
+      router.replace("/Instructor");
+    }
+    if (userType === "admin") {
+      router.replace("/admin");
+    }
     //after user validation happens
-    router.replace("/admin");
+
+    console.log(data);
+    //********************Adding user token to local stoarage************************ */
+
+    // new Date().getTime()--> get the time in milliseconds
+    // data.expiresIn --> token id expiring time in seconds, * 1000 -> converting in miliseconds
+    const expirationTime = new Date(
+      new Date().getTime() + +data.session.expires_in * 1000
+    );
+    authCtx.login(data.session.access_token, expirationTime.toISOString());
+
+    //setting the user type using context
+    authCtx.setUserRoleType(userType);
+
+    //********************Adding user token to local stoarage************************ */
   };
 
   let classNameEmail = !formEmailValid

@@ -1,19 +1,29 @@
 import AddUserTeacher from "@/components/Admin/AddUserTeacher";
-import Card from "@/components/layout/Card";
 import Navigation from "@/components/layout/Navigation";
-import Link from "next/link";
-import React from "react";
+import AuthContext from "@/components/store/auth-context";
+import React, { useContext } from "react";
 
-const NewUser = () => {
+const Admin = () => {
+  const authCtx = useContext(AuthContext);
+  console.log("LoggedIn: ", authCtx.isLoggedIn);
+
   return (
     <div>
-      <Navigation />
-      <div className="text-center">
-        <h1>Hello Admin</h1>
+      <div>
+        {authCtx.isLoggedIn && (
+          <div>
+            <Navigation />
+            <div className="text-center">
+              <h1>Hello Admin</h1>
+            </div>
+            <AddUserTeacher />
+          </div>
+        )}
+
+        {!authCtx.isLoggedIn && <p>Admin Not Logged In</p>}
       </div>
-      <AddUserTeacher />
     </div>
   );
 };
 
-export default NewUser;
+export default Admin;

@@ -1,11 +1,18 @@
 import Sidebar from "@/components/sidebar/SideBar";
-import React from "react";
+import AuthContext from "@/components/store/auth-context";
+import React, { useContext } from "react";
 
 const Home = () => {
+  const authCtx = useContext(AuthContext);
+
   return (
-    <div>
-      <Sidebar />
-    </div>
+    <>
+      {authCtx.isLoggedIn && (
+        <div>
+          <Sidebar />
+        </div>
+      )}
+    </>
   );
 };
 export default Home;
