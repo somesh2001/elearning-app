@@ -4,8 +4,11 @@ import React, { useRef, useState } from "react";
 
 const StudentSignUp = () => {
   const router = useRouter();
+  const [isError, setIsError] = useState(false);
+
   const path = router.pathname;
-  const user = path === "/admin/add-student" ? "Student" : "Instructor";
+  const user =
+    path === "/admin/students/add-student" ? "Student" : "Instructor";
 
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -21,43 +24,57 @@ const StudentSignUp = () => {
     const enteredName = nameRef.current.value;
     const enteredContact = contactRef.current.value;
 
-    const { data1, error1 } = await supabase.auth.updateUser({
-      email: enteredEmailValue,
-      password: enteredPasswordValue,
-      data: { type: "student" },
-    });
+    //Checking the whether the user is invited or not
+    //and email is verfied
 
-    const { data, error } = await supabase.auth.signUp({
-      email: enteredEmailValue,
-      password: enteredPasswordValue,
-      options: {
-        data: {
-          type: "student",
-        },
-      },
-    });
+    const { data, error } = await supabase
+      .from("student_teacher_verification")
+      .select("email")
+      .eq("email", enteredEmailValue);
 
-    const { errorTable } = await supabase
-      .from("students")
-      .insert({
+    let emailIsValid = data[0] ? true : false;
+
+    if (emailIsValid) {
+      //If the email is varified
+
+      const { data1, error1 } = await supabase.auth.updateUser({
         email: enteredEmailValue,
-        name: enteredName,
-        contact: enteredContact,
-        type: "student",
-      })
-      .select();
+        password: enteredPasswordValue,
+        data: { type: "student" },
+      });
 
-    console.log(errorTable);
+      const { data, error } = await supabase.auth.signUp({
+        email: enteredEmailValue,
+        password: enteredPasswordValue,
+        options: {
+          data: {
+            type: "student",
+          },
+        },
+      });
 
-    if (error) {
-      console.log(error);
-      return;
+      //Inserting the Student data into student table
+      const { errorTable } = await supabase
+        .from("students")
+        .insert({
+          email: enteredEmailValue,
+          name: enteredName,
+          contact: enteredContact,
+          type: "student",
+        })
+        .select();
+
+      console.log(errorTable);
+
+      if (error) {
+        console.log(error);
+        return;
+      }
+      //after user validation happens
+      router.push("/");
+    } else {
+      setIsError(true);
     }
-    console.log(data);
-    console.log(data1);
-
-    //after user validation happens
-    router.push("/");
   };
 
   return (
@@ -150,7 +167,7 @@ const StudentSignUp = () => {
               />
             </div>
           </div>
-
+          {isError && <p>Please Enter Correct Email</p>}
           <div>
             <button
               type="submit"

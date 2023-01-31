@@ -4,8 +4,11 @@ import React, { useRef, useState } from "react";
 
 const TeacherSignUp = () => {
   const router = useRouter();
+  const [isError, setIsError] = useState(false);
+
   const path = router.pathname;
-  const user = path === "/admin/add-student" ? "Student" : "Instructor";
+  const user =
+    path === "/admin/students/add-student" ? "Student" : "Instructor";
 
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -21,43 +24,54 @@ const TeacherSignUp = () => {
     const enteredName = nameRef.current.value;
     const enteredContact = contactRef.current.value;
 
-    const { data1, error1 } = await supabase.auth.updateUser({
-      email: enteredEmailValue,
-      password: enteredPasswordValue,
-      data: { type: "instructor" },
-    });
+    //Checking the whether the user is invited or not
+    //and email is verfied
 
-    const { data, error } = await supabase.auth.signUp({
-      email: enteredEmailValue,
-      password: enteredPasswordValue,
-      options: {
-        data: {
-          type: "instructor",
-        },
-      },
-    });
+    const { data, error } = await supabase
+      .from("student_teacher_verification")
+      .select("email")
+      .eq("email", enteredEmailValue);
 
-    const { errorTable } = await supabase
-      .from("teachers")
-      .insert({
+    let emailIsValid = data[0] ? true : false;
+
+    if (emailIsValid) {
+      const { data1, error1 } = await supabase.auth.updateUser({
         email: enteredEmailValue,
-        name: enteredName,
-        contact: enteredContact,
-        type: "instructor",
-      })
-      .select();
+        password: enteredPasswordValue,
+        data: { type: "instructor" },
+      });
 
-    console.log(errorTable);
+      const { data, error } = await supabase.auth.signUp({
+        email: enteredEmailValue,
+        password: enteredPasswordValue,
+        options: {
+          data: {
+            type: "instructor",
+          },
+        },
+      });
 
-    if (error) {
-      console.log(error);
-      return;
+      const { errorTable } = await supabase
+        .from("teachers")
+        .insert({
+          email: enteredEmailValue,
+          name: enteredName,
+          contact: enteredContact,
+          type: "instructor",
+        })
+        .select();
+
+      console.log(errorTable);
+
+      if (error) {
+        console.log(error);
+        return;
+      }
+      //after user validation happens
+      router.push("/");
+    } else {
+      setIsError(true);
     }
-    console.log(data);
-    console.log(data1);
-
-    //after user validation happens
-    router.push("/");
   };
 
   return (
@@ -148,7 +162,7 @@ const TeacherSignUp = () => {
               />
             </div>
           </div>
-
+          {isError && <p>Please Enter Correct Email</p>}
           <div>
             <button
               type="submit"

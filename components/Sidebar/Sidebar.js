@@ -1,14 +1,14 @@
+import Link from "next/link";
 import { useState } from "react";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const Menus = [
-    { title: "Dashboard", src: "Chart_fill" },
-    { title: "Batches", src: "Chat" },
-    { title: "Announcement", src: "User", gap: true },
-    { title: "Student Progress ", src: "Calendar" },
-    { title: "Batch Progress Report", src: "Search" },
-    { title: "Analytics", src: "Chart" },
+    { title: "Dashboard", src: "Chart_fill", link: "home" },
+    { title: "Batches", src: "Chat", link: "batch" },
+    { title: "Announcement", src: "User", gap: true, link: "Announcement" },
+    { title: "Batch Progress Report", src: "Search", link: "home" },
+    { title: "Analytics", src: "Chart", link: "Analytics" },
   ];
   return (
     <div className="flex">
@@ -36,23 +36,27 @@ const Sidebar = () => {
               !open && "scale-0"
             }`}
           >
-            Designer
+            Logo
           </h1>
         </div>
         <ul className="pt-6">
           {Menus.map((Menu, index) => (
-            <li
-              key={index}
-              className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
+            <Link href={Menu.link}>
+              <li
+                key={index}
+                className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
               ${Menu.gap ? "mt-9" : "mt-2"} ${
-                index === 0 && "bg-light-white"
-              } `}
-            >
-              <img src={`../src/${Menu.src}.png`} />
-              <span className={`${!open && "hidden"} origin-left duration-200`}>
-                {Menu.title}
-              </span>
-            </li>
+                  index === 0 && "bg-light-white"
+                } `}
+              >
+                <img src="Calendar.png" />
+                <span
+                  className={`${!open && "hidden"} origin-left duration-200`}
+                >
+                  {Menu.title}
+                </span>
+              </li>
+            </Link>
           ))}
         </ul>
       </div>
