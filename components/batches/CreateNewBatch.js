@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import AuthContext from "../store/auth-context";
 import supabase from "@/supabaseClient";
-import Navigation from "../layout/Navigation";
 
 const CreateNewBatch = () => {
   const [error, setError] = useState("");

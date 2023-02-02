@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Navigation from "../layout/Navigation";
 import supabase from "@/supabaseClient";
+import AddStudentToBatch from "../batches/AddStudentToBatch";
 
 const StudentTeacherProfile = (props) => {
   const [profileData, setProfileData] = useState([{}]);
+  const [batchdata, setBatchData] = useState([]);
+
+  const [showAddBatch, setShowAddBatch] = useState(false);
+  const type = props.role;
 
   useEffect(() => {
     supabase
@@ -12,7 +17,20 @@ const StudentTeacherProfile = (props) => {
       .eq("email", props.email)
       .then((response) => setProfileData(response.data));
   }, []);
-  console.log(profileData);
+
+  //getting the batch data for the student
+  useEffect(() => {
+    supabase
+      .from("batch_student_relation")
+      .select("*")
+      .eq("student_id", props.email)
+      .then((res) => setBatchData(res.data));
+  }, []);
+
+  //show/hide the pop-up form
+  const addStudentToBatch = () => {
+    setShowAddBatch((prev) => !prev);
+  };
 
   return (
     <>
@@ -37,13 +55,13 @@ const StudentTeacherProfile = (props) => {
                     <ul className="list-none p-0">
                       <label className="flex border-b border-gray-200 h-12 py-3 items-center">
                         <span className="text-right px-2">Name - </span>
-                        <span name="city" className="focus:outline-none px-3">
+                        <span name="name" className="focus:outline-none px-3">
                           {profileData[0].name}
                         </span>
                       </label>
                       <label className="flex border-b border-gray-200 h-12 py-3 items-center">
                         <span className="text-right px-2">Email - </span>
-                        <span name="city" className="focus:outline-none px-3">
+                        <span name="email" className="focus:outline-none px-3">
                           {profileData[0].email}
                         </span>
                       </label>
@@ -55,15 +73,30 @@ const StudentTeacherProfile = (props) => {
                       </label>
                       <label className="flex border-b border-gray-200 h-12 py-3 items-center">
                         <span className="text-right px-2">Contact - </span>
-                        <span name="city" className="focus:outline-none px-3">
+                        <span
+                          name="contact"
+                          className="focus:outline-none px-3"
+                        >
                           {profileData[0].contact}
                         </span>
                       </label>
                       <label className="flex border-b border-gray-200 h-12 py-3 items-center">
                         <span className="text-right px-2">Role - </span>
-                        <span name="city" className="focus:outline-none px-3">
+                        <span name="role" className="focus:outline-none px-3">
                           {profileData[0].type}
                         </span>
+                      </label>
+                      <label className="flex border-b border-gray-200 h-12 py-3 items-center">
+                        <span className=" px-2">Enroll In -</span>
+                        {batchdata.map((batch) => (
+                          <span
+                            name="role"
+                            className="focus:outline-none px-3 border-x-2"
+                            key={batch.id}
+                          >
+                            {batch.batch_id}
+                          </span>
+                        ))}
                       </label>
                     </ul>
                   </div>
@@ -71,7 +104,7 @@ const StudentTeacherProfile = (props) => {
               </section>
             </form>
           </div>
-          <div class="rounded-m w-20d"></div>
+          <div className="rounded-m w-20d"></div>
           <button
             type="submit"
             className="group relative w-full flex justify-center
@@ -83,6 +116,20 @@ const StudentTeacherProfile = (props) => {
             <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
             Remove Student
           </button>
+          {type === "students" && (
+            <button
+              onClick={addStudentToBatch}
+              type="submit"
+              className="group relative w-full flex justify-center
+            py-2 px-4 border border-transparent text-sm font-medium
+            rounded-md text-white bg-dark-purple 
+            focus:outline-none focus:ring-2 focus:ring-offset-2
+            focus:ring-orange-500 mt-4 mb-4"
+            >
+              <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
+              Add Student To Batch
+            </button>
+          )}
         </div>
         <div className="col-span-1 bg-white lg:block hidden">
           <h1 className="py-6 border-b-2 text-xl text-gray-600 px-8 text-center mt-2">
@@ -97,6 +144,13 @@ const StudentTeacherProfile = (props) => {
             />
           </div>
         </div>
+        {showAddBatch && (
+          <AddStudentToBatch
+            show={setShowAddBatch}
+            studentEmail={profileData[0].email}
+            batch={batchdata}
+          />
+        )}
       </div>
     </>
   );

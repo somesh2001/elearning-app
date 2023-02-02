@@ -10,8 +10,10 @@ const AuthContext = React.createContext({
   setUserType: (type) => {},
   setStudentsData: (data) => {},
   setTeachersData: (data) => {},
+  setBatchesData: (data) => {},
   studentsList: [],
   teachersList: [],
+  batchesList: [],
   userType: "",
 });
 
@@ -27,6 +29,7 @@ const calculateRemainingTime = (expirationTime) => {
 export const AuthContextProvider = (props) => {
   const [studentList, setStudentsList] = useState([]);
   const [teachersList, setTeachersList] = useState([]);
+  const [batchesList, setBatchesList] = useState([]);
 
   const [token, setToken] = useState("");
   const [userType, setUserType] = useState("admin");
@@ -73,6 +76,10 @@ export const AuthContextProvider = (props) => {
   const TeachersDataHandler = (newUserData) => {
     setTeachersList(newUserData);
   };
+
+  const BatchesDataHandler = (newBatchesData) => {
+    setBatchesList(newBatchesData);
+  };
   const contextValue = {
     token: token,
     isLoggedIn: userIsLoggedIn,
@@ -81,8 +88,10 @@ export const AuthContextProvider = (props) => {
     setUserRoleType: setUserRoleType,
     setStudentsData: studentsDataHandler,
     setTeachersData: TeachersDataHandler,
+    setBatchesData: BatchesDataHandler,
     studentsList: studentList,
     teachersList: teachersList,
+    batchesList: batchesList,
     userType: userType,
   };
 
