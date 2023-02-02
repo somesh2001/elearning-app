@@ -1,6 +1,6 @@
 import supabase from "@/supabaseClient";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import BatchDetails from "./BatchDetails";
 
 const CourseCard = ({ title, book }) => (
   <div className="max-w-sm rounded overflow-hidden shadow-lg items-center justify-center bg-white">
@@ -13,7 +13,8 @@ const CourseCard = ({ title, book }) => (
           type="submit"
           className="inline-flex justify-center rounded-md border border-transparent bg-dark-purple py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-dark-purple focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
-          See Details
+          <Link href="/admin/batches/batch-details">
+          See Details</Link>
         </button>
       </div>
     </div>
@@ -50,7 +51,7 @@ const DisplayBatches = () => {
           ))}
         </div>
       </div>
-      <BatchDetails/>
+
     </>
   );
 };
