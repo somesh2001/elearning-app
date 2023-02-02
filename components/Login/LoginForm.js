@@ -114,7 +114,7 @@ const LoginForm = () => {
       </div>
       <div className={classNamePassword}>
         <label htmlFor="address">Password</label>
-        <input type="text" id="password" ref={passwordRef} />
+        <input type="password" id="password" ref={passwordRef} />
         {passwordError}
       </div>
       <div className={styles.actions}>

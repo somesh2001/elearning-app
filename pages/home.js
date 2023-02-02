@@ -1,3 +1,4 @@
+import NewSideBar from "@/components/Sidebar/NewSideBar";
 import Sidebar from "@/components/sidebar/SideBar";
 import AuthContext from "@/components/store/auth-context";
 import React, { useContext } from "react";
@@ -9,7 +10,8 @@ const Home = () => {
     <>
       {authCtx.isLoggedIn && (
         <div>
-          <Sidebar />
+          {/* <Sidebar /> */}
+          <NewSideBar />
         </div>
       )}
     </>

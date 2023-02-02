@@ -98,7 +98,7 @@ const AddStudentTeacher = () => {
                       />
                     </div>
                     <button
-                      className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
+                      className="bg-dark-purple hover:bg-dark-purple text-white py-2 px-4 rounded"
                       type="submit"
                     >
                       Send Request
@@ -119,7 +119,7 @@ const AddStudentTeacher = () => {
       <button
         className="group relative float-right mr-20 
             py-2 px-4 border border-transparent text-sm font-medium
-            rounded-md text-white bg-indigo-600 hover:bg-indigo-700
+            rounded-md text-white bg-dark-purple hover:bg-dark-purple
             focus:outline-none focus:ring-2 focus:ring-offset-2
             focus:ring-indigo-500 mb-4"
         onClick={() => setShowForm(true)}

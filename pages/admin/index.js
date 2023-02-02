@@ -1,4 +1,5 @@
 import AddUserTeacher from "@/components/Admin/AddUserTeacher";
+import Card from "@/components/layout/Card";
 import Navigation from "@/components/layout/Navigation";
 import AuthContext from "@/components/store/auth-context";
 import React, { useContext } from "react";
@@ -8,21 +9,23 @@ const Admin = () => {
   console.log("LoggedIn: ", authCtx.isLoggedIn);
 
   return (
-    <div>
-      <div>
-        {authCtx.isLoggedIn && (
-          <div>
-            <Navigation />
-            <div className="text-center">
-              <h1>Hello Admin</h1>
+    <>
+      <div className=" bg-slate-300">
+        <div className="h-screen ">
+          {authCtx.isLoggedIn && (
+            <div>
+              <Navigation />
+              <div className="text-center"></div>
+              <div className="flex justify-center items-center mt-36">
+                <Card />
+              </div>
             </div>
-            <AddUserTeacher />
-          </div>
-        )}
+          )}
 
-        {!authCtx.isLoggedIn && <p>Admin Not Logged In</p>}
+          {!authCtx.isLoggedIn && <p>Admin Not Logged In</p>}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

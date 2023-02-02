@@ -52,25 +52,10 @@ const CreateNewBatch = () => {
       console.log(errorTable);
       return;
     }
-
-    const { data, error } = await supabase
-      .from("teachers")
-      .update({ batch_id_email: enteredTeacherEmail })
-      .eq("email", enteredTeacherEmail)
-      .select();
-
-    if (error) {
-      setError("Server Error");
-      return;
-    }
-
-    console.log(data);
-    console.log(error);
   };
 
   return (
     <>
-      <Navigation />
       <div className="mt-10 sm:mt-20">
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1 bg-gray-400">
@@ -184,3 +169,34 @@ const CreateNewBatch = () => {
 };
 
 export default CreateNewBatch;
+
+// supabase
+// .from("batches")
+// .insert({
+//   batch_name: enteredBatchName,
+//   teacher_email: enteredTeacherEmail,
+//   type: enteredType,
+//   book_name: enteredBookName,
+// })
+// .then((res) => {
+//   if (!res.ok) {
+//     setError(
+//       "Teacher Already added to the batch please add a new teacher"
+//     );
+//     return;
+//   }
+// });
+
+// const { data, error } = await supabase
+// .from("teachers")
+// .update({ batch_id_email: enteredTeacherEmail })
+// .eq("email", enteredTeacherEmail)
+// .select();
+
+// if (error) {
+// setError("Server Error");
+// return;
+// }
+
+// console.log(data);
+// console.log(error);

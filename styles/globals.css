@@ -21,3 +21,6 @@ h5,
 h6 {
   font-family: "Lato", sans-serif;
 }
+.button-bg-1 {
+  --tw-bg-color: #004f70;
+}

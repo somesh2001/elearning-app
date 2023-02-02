@@ -30,23 +30,18 @@ const ManageStudentTeacherData = (props) => {
       <div className="px-4 sm:px-6 lg:px-8 ">
         <div>
           <div class="flex items-center justify-center mb-3 ml-36">
-            <div
-              class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg"
-              role="group"
+            <label
+              for="Toggle4"
+              className="inline-flex items-center p-1 cursor-pointer dark:bg-gray-300 dark:text-gray-800 rounded-sm"
             >
-              <button
-                type="button"
-                class="rounded-l inline-block px-7 py-3 bg-green-600 text-white font-medium text-sm leading-snug  hover:bg-blue-700 focus:bg-gray-700 focus:outline-none focus:ring-0 active:bg-gray-700 transition duration-150 ease-in-out"
-              >
-                Verified {path}
-              </button>
-              <button
-                type="button"
-                class="inline-block px-7 py-3 bg-orange-600 text-white font-medium text-sm leading-snug  hover:bg-oranage-700 focus:bg-gray-700 focus:outline-none focus:ring-0 active:bg-gray-700 transition duration-150 ease-in-out"
-              >
-                Unvarified {path}
-              </button>
-            </div>
+              <input id="Toggle4" type="checkbox" className="hidden peer" />
+              <span className="px-4 py-2 dark:bg-gray-500 peer-checked:dark:bg-gray-300 rounded-sm">
+                Varified {path}
+              </span>
+              <span className="px-4 py-2 dark:bg-gray-300 peer-checked:dark:bg-orange-400 rounded-sm">
+                Un-Varified {path}
+              </span>
+            </label>
           </div>
         </div>
 
