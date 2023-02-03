@@ -66,15 +66,12 @@ const BatchDetails = () => {
                       <img
                         class="inline-block h-6 w-6 mx-3 rounded-full ring-2 ring-white"
                         src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
-                      
                       />
                       Abc
                     </span>
                   </div>
                 </div>
               </div>
-
-              
             </div>
             {/* <p className="text-red-400">Error </p> */}
           </div>
@@ -94,7 +91,7 @@ const BatchDetails = () => {
                       Daily On{" "}
                     </span>
                     <span id="" className="mt-1 ml-10 font-semibold w-2/6  ">
-                      Timeing for a Day
+                      Timeing for a Day.
                     </span>
                     <span id="" className="mt-1 ml-10 font-semibold w-2/6  ">
                       Date
@@ -104,7 +101,7 @@ const BatchDetails = () => {
                 <div className="col-span-6 sm:col-span-4 shadow-sm p-2">
                   <div className="flex  text-sm font-medium text-gray-700 ">
                     <span className="mt-1 font-semibold w-2/6   ">
-                      Monday to Friday{" "}
+                      Monday to Friday
                     </span>
                     <span id="" className="mt-1 ml-10 font-semibold w-2/6  ">
                       9am to 11am
@@ -114,15 +111,10 @@ const BatchDetails = () => {
                     </span>
                   </div>
                 </div>
-                
-                
               </div>
-
-              
             </div>
             {/* <p className="text-red-400">Error </p> */}
           </div>
-          
         </div>
         {/* Second */}
         {showUserList && (
@@ -155,11 +147,11 @@ const BatchDetails = () => {
                   <span id="" className="mt-1 ml-10 font-semibold w-1/5  ">
                     {" "}
                     <button
-                    onClick={openList}
-                    className="inline-flex justify-center rounded-md border border-transparent bg-green-700 py-1 px-2 text-sm font-medium text-white shadow-sm hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    <span className="font-bold px-1 "> + </span>
-                  </button>
+                      onClick={openList}
+                      className="inline-flex justify-center rounded-md border border-transparent bg-green-700 py-1 px-2 text-sm font-medium text-white shadow-sm hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      <span className="font-bold px-1 "> + </span>
+                    </button>
                   </span>
                 </div>
               </div>
@@ -175,11 +167,11 @@ const BatchDetails = () => {
                   <span id="" className="mt-1 ml-10 font-semibold w-1/5  ">
                     {" "}
                     <button
-                    onClick={openList}
-                    className="inline-flex justify-center rounded-md border border-transparent bg-green-700 py-1 px-2 text-sm font-medium text-white shadow-sm hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    <span className="font-bold px-1 "> + </span>
-                  </button>
+                      onClick={openList}
+                      className="inline-flex justify-center rounded-md border border-transparent bg-green-700 py-1 px-2 text-sm font-medium text-white shadow-sm hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      <span className="font-bold px-1 "> + </span>
+                    </button>
                   </span>
                 </div>
               </div>
@@ -195,16 +187,14 @@ const BatchDetails = () => {
                   <span id="" className="mt-1 ml-10 font-semibold w-1/5  ">
                     {" "}
                     <button
-                    onClick={openList}
-                    className="inline-flex justify-center rounded-md border border-transparent bg-green-700 py-1 px-2 text-sm font-medium text-white shadow-sm hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    <span className="font-bold px-1 "> + </span>
-                  </button>
+                      onClick={openList}
+                      className="inline-flex justify-center rounded-md border border-transparent bg-green-700 py-1 px-2 text-sm font-medium text-white shadow-sm hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      <span className="font-bold px-1 "> + </span>
+                    </button>
                   </span>
                 </div>
               </div>
-             
-             
             </div>
           </div>
         )}
@@ -286,7 +276,6 @@ const BatchDetails = () => {
                   </span>
                 </div>
               </div>
-              
 
               <div class="align-end m-2"></div>
             </div>
