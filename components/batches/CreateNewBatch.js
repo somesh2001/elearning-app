@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import AuthContext from "../store/auth-context";
 import supabase from "@/supabaseClient";
+// import style from "@/components/batches/CreateBatchStyle.module.css";
 import Navigation from "../layout/Navigation";
 
 const CreateNewBatch = () => {
@@ -158,8 +159,8 @@ const CreateNewBatch = () => {
                     </div>
 
                     <div className="col-span-6  daily-on">
-                      <h4 className="my-3">Daily on.</h4>
-                      <div className="grid grid-cols-8 gap-3 lg:gap-6">
+                      <h4 className="my-2" >Weekly on.</h4>
+                      <div className="grid grid-cols-8 sm:grid-cols-7 gap-3 lg:gap-5">
                         <div className="col-span-2 sm:col-span-1 pl-1  pb-3 appearance-none rounded-md cursor-pointer border-2 border-gray-300 shadow-sm">
                           <input
                             type="checkbox"
