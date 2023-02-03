@@ -70,11 +70,14 @@ const CreateNewBatch = () => {
           </div>
           <div className="mt-5 md:col-span-2 md:mt-0">
             <form onSubmit={onBatchCreateHandler}>
-              <div className="overflow-hidden shadow sm:rounded-md">
+              <div className="overflow-hidden shadow sm:rounded-md md:mx-5">
                 <div className="bg-white px-4 py-5 sm:p-6">
-                  <div className="grid grid-cols-6 gap-6">
-                    <div className="col-span-6 sm:col-span-4">
-                      <label
+                  <div className="grid grid-cols-6 gap-6 ">
+                    
+                    <div className="col-span-6">
+                      <div className="grid grid-cols-8 gap-3">
+                        <div className="col-span-8 sm:col-span-4">
+                        <label
                         htmlFor="batch-name"
                         className="block text-sm font-medium text-gray-700"
                       >
@@ -89,28 +92,31 @@ const CreateNewBatch = () => {
                         required
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
+                        </div>
+                        <div className="col-span-8 sm:col-span-4">
+                          <label
+                            htmlFor="book-name"
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            Book name
+                          </label>
+                          <input
+                            type="text"
+                            name="book-name"
+                            id="book-name"
+                            ref={bookNameRef}
+                            required
+                            autoComplete="given-name"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          />
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="col-span-6 sm:col-span-4">
-                      <label
-                        htmlFor="book-name"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Book name
-                      </label>
-                      <input
-                        type="text"
-                        name="book-name"
-                        id="book-name"
-                        ref={bookNameRef}
-                        required
-                        autoComplete="given-name"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      />
-                    </div>
-
-                    <div className="col-span-6 sm:col-span-4">
-                      <label
+                    <div className="col-span-6">
+                      <div className="grid grid-cols-8 gap-3">
+                        <div className="col-span-8 sm:col-span-4">
+                        <label
                         htmlFor="Teacher"
                         className="block text-sm font-medium text-gray-700"
                       >
@@ -127,9 +133,9 @@ const CreateNewBatch = () => {
                         <option>Adult</option>
                         <option>Kid</option>
                       </select>
-                    </div>
-                    <div className="col-span-6 sm:col-span-4">
-                      <label
+                        </div>
+                        <div className="col-span-8 sm:col-span-4">
+                        <label
                         htmlFor="Type"
                         className="block text-sm font-medium text-gray-700"
                       >
@@ -147,14 +153,165 @@ const CreateNewBatch = () => {
                           </option>
                         ))}
                       </select>
+                        </div>
+                      </div>
                     </div>
+
+                    <div className="col-span-6  daily-on">
+                      <h4 className="my-3">Daily on.</h4>
+                      <div className="grid grid-cols-8 gap-3 lg:gap-6">
+                        <div className="col-span-2 sm:col-span-1 pl-1  pb-3 appearance-none rounded-md cursor-pointer border-2 border-gray-300 shadow-sm">
+                          <input
+                            type="checkbox"
+                            name="mon"
+                            id="mon"
+                            // ref={nameRef}
+                            className="mt-1 block day-card appearance-none focus:outline-none border-solid rounded-full after:border-none focus:border-none sm:text-sm"
+                          />
+                          <label
+                            htmlFor="mon"
+                            className="block text-sm font-medium text-center cursor-pointer text-gray-700"
+                          >
+                            Mon
+                          </label>
+                        </div>
+                        <div className="col-span-2 sm:col-span-1 pl-1   pb-3 appearance-none rounded-md cursor-pointer border-2 border-gray-300 shadow-sm">
+                          <input
+                            type="checkbox"
+                            name="tue"
+                            id="tue"
+                            // ref={nameRef}
+                            className="mt-1 block day-card appearance-none  focus:outline-none border-solid rounded-full after:border-none focus:border-none sm:text-sm"
+                          />
+                          <label
+                            htmlFor="tue"
+                            className="block text-sm font-medium text-center cursor-pointer text-gray-700"
+                          >
+                            Tue
+                          </label>
+                        </div>
+                        <div className="col-span-2 sm:col-span-1 pl-1  pb-3 appearance-none rounded-md cursor-pointer border-2 border-gray-300 shadow-sm">
+                          <input
+                            type="checkbox"
+                            name="wed"
+                            id="wed"
+                            // ref={nameRef}
+                            className="mt-1 block day-card appearance-none focus:outline-none border-solid rounded-full after:border-none focus:border-none sm:text-sm"
+                          />
+                          <label
+                            htmlFor="wed"
+                            className="block text-sm font-medium text-center cursor-pointer text-gray-700"
+                          >
+                            Wed
+                          </label>
+                        </div>
+                        <div className="col-span-2 sm:col-span-1 pl-1  pb-3 appearance-none rounded-md cursor-pointer border-2 border-gray-300 shadow-sm">
+                          <input
+                            type="checkbox"
+                            name="thus"
+                            id="thus"
+                            // ref={nameRef}
+                            className="mt-1 block day-card appearance-none focus:outline-none border-solid rounded-full after:border-none focus:border-none sm:text-sm"
+                          />
+                          <label
+                            htmlFor="thus"
+                            className="block text-sm font-medium text-center cursor-pointer text-gray-700"
+                          >
+                            Thus
+                          </label>
+                        </div>
+                        <div className="col-span-2 sm:col-span-1 pl-1  pb-3 appearance-none rounded-md cursor-pointer border-2 border-gray-300 shadow-sm">
+                          <input
+                            type="checkbox"
+                            name="fri"
+                            id="fri"
+                            // ref={nameRef}
+                            className="mt-1 block day-card appearance-none focus:outline-none border-solid rounded-full after:border-none focus:border-none sm:text-sm"
+                          />
+                          <label
+                            htmlFor="fri"
+                            className="block text-sm font-medium text-center cursor-pointer text-gray-700"
+                          >
+                            Fri
+                          </label>
+                        </div>
+                        <div className="col-span-2 sm:col-span-1 pl-1  pb-3 appearance-none rounded-md cursor-pointer border-2 border-gray-300 shadow-sm">
+                          <input
+                            type="checkbox"
+                            name="sat"
+                            id="sat"
+                            // ref={nameRef}
+                            className="mt-1 block day-card appearance-none focus:outline-none border-solid rounded-full after:border-none focus:border-none sm:text-sm"
+                          />
+                          <label
+                            htmlFor="sat"
+                            className="block text-sm font-medium text-center cursor-pointer text-gray-700"
+                          >
+                            Sat
+                          </label>
+                        </div>
+                        <div className="col-span-2 sm:col-span-1 pl-1  pb-3 appearance-none rounded-md cursor-pointer border-2 border-gray-300 shadow-sm">
+                          <input
+                            type="checkbox"
+                            name="sun"
+                            id="sun"
+                            // ref={nameRef}
+                            className="mt-1 block day-card appearance-none focus:outline-none border-solid rounded-full after:border-none focus:border-none sm:text-sm"
+                          />
+                          <label
+                            htmlFor="sun"
+                            className="block text-sm font-medium text-center cursor-pointer text-gray-700"
+                          >
+                            Sun
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="col-span-6">
+                      <div className="grid grid-cols-8 gap-3">
+                        <div className="col-span-8 sm:col-span-4">
+                        <label
+                        htmlFor="time"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        At what time of day?
+                      </label>
+                      <input
+                        type="text"
+                        name="time"
+                        id="time"
+                        // ref={nameRef}
+                        required
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      />
+                        </div>
+                        <div className="col-span-8 sm:col-span-4">
+                        <label
+                        htmlFor="date"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Starting Date
+                      </label>
+                      <input
+                        type="date"
+                        name="date"
+                        id="date"
+                        // ref={nameRef}
+                        required
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      />
+                        </div>
+                      </div>
+                    </div>
+                   
                   </div>
                 </div>
                 {error && <p className="text-red-400">{error}</p>}
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6 items-center">
                   <button
                     type="submit"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="inline-flex justify-center w-full rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     Create Batch
                   </button>

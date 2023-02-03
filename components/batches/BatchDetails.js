@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import { useState } from "react";
 
 const BatchDetails = () => {
@@ -65,12 +66,12 @@ const BatchDetails = () => {
                       <img
                         class="inline-block h-6 w-6 mx-3 rounded-full ring-2 ring-white"
                         src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
+                      
                       />
                       Abc
                     </span>
                   </div>
                 </div>
-                
               </div>
 
               
