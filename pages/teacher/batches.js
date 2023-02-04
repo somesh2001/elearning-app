@@ -13,7 +13,7 @@ const batches = () => {
       <div  className="h-screen flex-1 p-7">
       {/* {Menus.map((Menu, index) => ( */}
         <div className="m-0" >
-        <DisplayBatches />
+        <DisplayBatches  />
         </div>
         {/* ))} */}
       </div>

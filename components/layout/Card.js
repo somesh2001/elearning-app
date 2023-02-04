@@ -19,6 +19,7 @@ const CourseCard = ({ title, path, description, svg }) => (
     </div>
   </div>
 );
+
 const Card = () => {
   const svg1 = (
     <svg

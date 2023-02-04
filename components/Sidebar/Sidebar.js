@@ -8,6 +8,7 @@ const Sidebar = (props) => {
     { title: `${props.title2}`, src: `${props.src2}`, link: `${props.link2}` },
     { title: `${props.title3}`, src: `${props.src3}`, link: `${props.link3}` },
     { title: `${props.title4}`, src: `${props.src4}`, link: `${props.link4}` },
+    { title: `${props.title5}`, src: `${props.src5}`, link: `${props.link5}` },
   ];
   return (
     <div className="flex">  
