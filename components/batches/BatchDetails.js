@@ -5,6 +5,7 @@ import StudentListCard from "../layout/StudentListCard";
 import AuthContext from "../store/auth-context";
 
 const BatchDetails = (props) => {
+  const [clicked, setClicked] = useState(false);
   const [showUserList, setshowUserList] = useState(false);
   const [batchDetail, setBatchDetail] = useState([]);
   const [enrollStudents, setEnrollStudents] = useState([]);
@@ -33,8 +34,6 @@ const BatchDetails = (props) => {
       );
   }, []);
 
-  console.log(scheduleDetail);
-
   let arr;
   if (scheduleDetail) {
     arr = JSON.parse(scheduleDetail);
@@ -47,7 +46,6 @@ const BatchDetails = (props) => {
     sheduleData = arr.filter(
       (sch) => sch.schedule.batchName === detail[0].batch_name
     );
-    console.log(sheduleData[0].schedule.startDate);
   }
   //getting the student for the selected batch
   useEffect(() => {
@@ -55,7 +53,7 @@ const BatchDetails = (props) => {
       .from("batch_student_relation")
       .select("*")
       .then((response) => setEnrollStudents(response.data));
-  }, []);
+  }, [clicked]);
 
   // filtering the batches data
   let batchStudents;
@@ -73,10 +71,11 @@ const BatchDetails = (props) => {
       .from("students")
       .select("*")
       .then((response) => authCtx.setStudentsData(response.data));
-  }, []);
+  }, [clicked]);
 
   const closeList = () => {
     setshowUserList(false);
+    setClicked(false);
   };
   const openList = () => {
     setshowUserList(true);
@@ -242,6 +241,7 @@ const BatchDetails = (props) => {
                       type={"addStudents"}
                       batch={detail[0].batch_name}
                       enrollStudents={batchStudents}
+                      click={setClicked}
                     />
                   ))}
                 </div>
@@ -272,6 +272,7 @@ const BatchDetails = (props) => {
                       type={"addedStudents"}
                       enrollStudents={batchStudents}
                       batch={detail[0].batch_name}
+                      click={setClicked}
                     />
                   ))}
 

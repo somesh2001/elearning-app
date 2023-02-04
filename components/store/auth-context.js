@@ -15,6 +15,7 @@ const AuthContext = React.createContext({
   teachersList: [],
   batchesList: [],
   userType: "",
+  userEmail: "",
 });
 
 const calculateRemainingTime = (expirationTime) => {
@@ -33,6 +34,7 @@ export const AuthContextProvider = (props) => {
 
   const [token, setToken] = useState("");
   const [userType, setUserType] = useState("admin");
+  const [userEmail, setUserEmail] = useState("");
 
   let initialToken;
   useEffect(() => {
@@ -41,11 +43,25 @@ export const AuthContextProvider = (props) => {
     setToken(initialToken);
   }, []);
 
+  let localType;
+  let localEmail;
+
+  useEffect(() => {
+    // Perform localStorage action
+    localType = localStorage.getItem("type");
+    localEmail = localStorage.getItem("email");
+
+    setUserType(localType);
+    setUserEmail(localEmail);
+  }, [localType, localEmail]);
+
   const userIsLoggedIn = !!token;
   const logoutHandler = () => {
     console.log("In auth Logout");
     setToken(null);
     localStorage.removeItem("token");
+    localStorage.removeItem("type");
+    localStorage.removeItem("email");
 
     // if the timer was saved thenwe are clearing the timer
     if (logoutHandler) {
@@ -66,8 +82,16 @@ export const AuthContextProvider = (props) => {
     logoutTimer = setTimeout(logoutHandler, remianingTime);
   };
 
-  const setUserRoleType = (type) => {
-    setUserType(type);
+  const setUserRoleType = (type, email) => {
+    console.log("inside setting data");
+    localStorage.setItem("type", type);
+    localStorage.setItem("email", email);
+
+    const localType = localStorage.getItem("type");
+    const localEmail = localStorage.getItem("email");
+
+    setUserType(localType);
+    setUserEmail(localEmail);
   };
 
   const studentsDataHandler = (newUserData) => {
@@ -93,6 +117,7 @@ export const AuthContextProvider = (props) => {
     teachersList: teachersList,
     batchesList: batchesList,
     userType: userType,
+    userEmail: userEmail,
   };
 
   return (

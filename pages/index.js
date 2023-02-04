@@ -7,13 +7,24 @@ import AuthContext, {
 import { useContext } from "react";
 import Admin from "./admin";
 import StudentAccount from "./studentaccount";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const authCtx = useContext(AuthContext);
+
+  const router = useRouter();
+
   const loggedIn = authCtx.isLoggedIn;
   const typeAdmin = authCtx.userType === "admin" ? true : false;
-  console.log("admin; ", typeAdmin);
+  const typeTeacher = authCtx.userType === "instructor" ? true : false;
 
+  if (typeTeacher) {
+    router.replace("/teacher/batches");
+  }
+
+  console.log("Email: ", authCtx.userEmail);
+  console.log("Type: ", authCtx.userType);
+  console.log("admin; ", typeAdmin);
   return (
     <>
       <Head>
@@ -25,7 +36,7 @@ export default function Home() {
       <main className={styles.main}>
         {!loggedIn && <LoginUser />}
         {loggedIn && typeAdmin && <Admin />}
-        {!typeAdmin && !loggedIn && <StudentAccount />}
+        {/* {!typeAdmin && !loggedIn && <StudentAccount />} */}
       </main>
     </>
   );

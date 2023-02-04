@@ -48,20 +48,22 @@ const LoginForm = () => {
       password: enteredPasswordValue,
     });
 
+    console.log(data);
+
     if (error) {
       return;
     }
 
     const userType = data.user.user_metadata.type;
+    const userEmail = data.session.user.email;
+    console.log(userEmail);
 
     console.log("type: ", userType);
 
     if (userType === "student") {
       router.replace("/home");
     }
-    if (userType === "instructor") {
-      router.replace("/Instructor");
-    }
+
     if (userType === "admin") {
       router.replace("/admin");
     }
@@ -78,7 +80,7 @@ const LoginForm = () => {
     authCtx.login(data.session.access_token, expirationTime.toISOString());
 
     //setting the user type using context
-    authCtx.setUserRoleType(userType);
+    authCtx.setUserRoleType(userType, userEmail);
 
     //********************Adding user token to local stoarage************************ */
   };

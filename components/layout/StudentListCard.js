@@ -3,7 +3,7 @@ import supabase from "@/supabaseClient";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-const StudentListCard = ({ email, type, batch, enrollStudents }) => {
+const StudentListCard = ({ email, type, batch, enrollStudents, click }) => {
   const router = useRouter();
 
   const [added, setAdded] = useState(false);
@@ -20,6 +20,7 @@ const StudentListCard = ({ email, type, batch, enrollStudents }) => {
       .insert({ student_id: email, batch_id: batch })
       .select();
     setAdded(true);
+    click(true);
   };
 
   const removeStudentFromBatch = async () => {
@@ -32,6 +33,7 @@ const StudentListCard = ({ email, type, batch, enrollStudents }) => {
     if (error) {
       console.log(error);
     }
+    click(true);
   };
 
   return (
