@@ -2,13 +2,27 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import AuthContext from "../store/auth-context";
 import supabase from "@/supabaseClient";
 
+const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const CreateNewBatch = () => {
   const [error, setError] = useState("");
+  const [selectedDays, setSelectedDays] = useState([]);
 
+  const handleChange = (event) => {
+    const day = event.target.value;
+    if (event.target.checked) {
+      setSelectedDays([...selectedDays, day]);
+    } else {
+      setSelectedDays(
+        selectedDays.filter((selectedDay) => selectedDay !== day)
+      );
+    }
+  };
   const nameRef = useRef();
   const bookNameRef = useRef();
   const typeRef = useRef();
   const teacherNameRef = useRef();
+  const timeRef = useRef();
+  const dateRef = useRef();
 
   const authCtx = useContext(AuthContext);
   let options = authCtx.teachersList;
@@ -28,11 +42,23 @@ const CreateNewBatch = () => {
     const enteredBookName = bookNameRef.current.value;
     const enteredType = typeRef.current.value;
     const enteredTeacherEmail = teacherNameRef.current.value;
+    const time = timeRef.current.value;
+    const date = dateRef.current.value;
+
+    const obj = {
+      days: selectedDays,
+      time: time,
+      startDate: date,
+      batchName: enteredBatchName,
+    };
 
     console.log(enteredBatchName);
     console.log(enteredBookName);
     console.log(enteredType);
     console.log(enteredTeacherEmail);
+    console.log(time);
+    console.log(date);
+    console.log(selectedDays);
 
     //Inserting the Student data into student table
 
@@ -43,6 +69,7 @@ const CreateNewBatch = () => {
         teacher_email: enteredTeacherEmail,
         type: enteredType,
         book_name: enteredBookName,
+        schedule: obj,
       })
       .select();
 
@@ -91,7 +118,6 @@ const CreateNewBatch = () => {
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />
                         </div>
-
                         <div className="col-span-8 sm:col-span-4">
                           <label
                             htmlFor="book-name"
@@ -159,111 +185,23 @@ const CreateNewBatch = () => {
                     <div className="col-span-6  daily-on">
                       <h4 className="my-2">Weekly on.</h4>
                       <div className="grid grid-cols-8 sm:grid-cols-7 gap-3 lg:gap-5">
-                        <div className="col-span-2 sm:col-span-1 pl-1  pb-3 appearance-none rounded-md cursor-pointer border-2 border-gray-300 shadow-sm">
-                          <input
-                            type="checkbox"
-                            name="mon"
-                            id="mon"
-                            // ref={nameRef}
-                            className="mt-1 block day-card appearance-none focus:outline-none border-solid rounded-full after:border-none focus:border-none sm:text-sm"
-                          />
-                          <label
-                            htmlFor="mon"
-                            className="block text-sm font-medium text-center cursor-pointer text-gray-700"
-                          >
-                            Mon
-                          </label>
-                        </div>
-                        <div className="col-span-2 sm:col-span-1 pl-1   pb-3 appearance-none rounded-md cursor-pointer border-2 border-gray-300 shadow-sm">
-                          <input
-                            type="checkbox"
-                            name="tue"
-                            id="tue"
-                            // ref={nameRef}
-                            className="mt-1 block day-card appearance-none  focus:outline-none border-solid rounded-full after:border-none focus:border-none sm:text-sm"
-                          />
-                          <label
-                            htmlFor="tue"
-                            className="block text-sm font-medium text-center cursor-pointer text-gray-700"
-                          >
-                            Tue
-                          </label>
-                        </div>
-                        <div className="col-span-2 sm:col-span-1 pl-1  pb-3 appearance-none rounded-md cursor-pointer border-2 border-gray-300 shadow-sm">
-                          <input
-                            type="checkbox"
-                            name="wed"
-                            id="wed"
-                            // ref={nameRef}
-                            className="mt-1 block day-card appearance-none focus:outline-none border-solid rounded-full after:border-none focus:border-none sm:text-sm"
-                          />
-                          <label
-                            htmlFor="wed"
-                            className="block text-sm font-medium text-center cursor-pointer text-gray-700"
-                          >
-                            Wed
-                          </label>
-                        </div>
-                        <div className="col-span-2 sm:col-span-1 pl-1  pb-3 appearance-none rounded-md cursor-pointer border-2 border-gray-300 shadow-sm">
-                          <input
-                            type="checkbox"
-                            name="thus"
-                            id="thus"
-                            // ref={nameRef}
-                            className="mt-1 block day-card appearance-none focus:outline-none border-solid rounded-full after:border-none focus:border-none sm:text-sm"
-                          />
-                          <label
-                            htmlFor="thus"
-                            className="block text-sm font-medium text-center cursor-pointer text-gray-700"
-                          >
-                            Thus
-                          </label>
-                        </div>
-                        <div className="col-span-2 sm:col-span-1 pl-1  pb-3 appearance-none rounded-md cursor-pointer border-2 border-gray-300 shadow-sm">
-                          <input
-                            type="checkbox"
-                            name="fri"
-                            id="fri"
-                            // ref={nameRef}
-                            className="mt-1 block day-card appearance-none focus:outline-none border-solid rounded-full after:border-none focus:border-none sm:text-sm"
-                          />
-                          <label
-                            htmlFor="fri"
-                            className="block text-sm font-medium text-center cursor-pointer text-gray-700"
-                          >
-                            Fri
-                          </label>
-                        </div>
-                        <div className="col-span-2 sm:col-span-1 pl-1  pb-3 appearance-none rounded-md cursor-pointer border-2 border-gray-300 shadow-sm">
-                          <input
-                            type="checkbox"
-                            name="sat"
-                            id="sat"
-                            // ref={nameRef}
-                            className="mt-1 block day-card appearance-none focus:outline-none border-solid rounded-full after:border-none focus:border-none sm:text-sm"
-                          />
-                          <label
-                            htmlFor="sat"
-                            className="block text-sm font-medium text-center cursor-pointer text-gray-700"
-                          >
-                            Sat
-                          </label>
-                        </div>
-                        <div className="col-span-2 sm:col-span-1 pl-1  pb-3 appearance-none rounded-md cursor-pointer border-2 border-gray-300 shadow-sm">
-                          <input
-                            type="checkbox"
-                            name="sun"
-                            id="sun"
-                            // ref={nameRef}
-                            className="mt-1 block day-card appearance-none focus:outline-none border-solid rounded-full after:border-none focus:border-none sm:text-sm"
-                          />
-                          <label
-                            htmlFor="sun"
-                            className="block text-sm font-medium text-center cursor-pointer text-gray-700"
-                          >
-                            Sun
-                          </label>
-                        </div>
+                        {days.map((day) => (
+                          <div className="col-span-2 sm:col-span-1 pl-1  pb-3 appearance-none rounded-md cursor-pointer border-2 border-gray-300 shadow-sm">
+                            <input
+                              type="checkbox"
+                              value={day}
+                              onChange={handleChange}
+                              checked={selectedDays.includes(day)}
+                              className="mt-1 block day-card appearance-none focus:outline-none border-solid rounded-full after:border-none focus:border-none sm:text-sm"
+                            />
+                            <label
+                              htmlFor="mon"
+                              className="block text-sm font-medium text-center cursor-pointer text-gray-700"
+                            >
+                              {day}
+                            </label>
+                          </div>
+                        ))}
                       </div>
                     </div>
 
@@ -280,7 +218,7 @@ const CreateNewBatch = () => {
                             type="text"
                             name="time"
                             id="time"
-                            // ref={nameRef}
+                            ref={timeRef}
                             required
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />
@@ -296,7 +234,7 @@ const CreateNewBatch = () => {
                             type="date"
                             name="date"
                             id="date"
-                            // ref={nameRef}
+                            ref={dateRef}
                             required
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />

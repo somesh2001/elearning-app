@@ -9,6 +9,8 @@ const BatchDetails = (props) => {
   const [batchDetail, setBatchDetail] = useState([]);
   const [enrollStudents, setEnrollStudents] = useState([]);
 
+  const [scheduleDetail, setScheduleDetail] = useState();
+
   const authCtx = useContext(AuthContext);
 
   //getting the data of batches
@@ -22,13 +24,38 @@ const BatchDetails = (props) => {
   //filtering the bathches data
   const detail = batchDetail.filter((batch) => batch.id === +props.batchId);
 
+  useEffect(() => {
+    supabase
+      .from("batches")
+      .select("schedule")
+      .then((response) =>
+        setScheduleDetail(JSON.stringify(response.data, null, 2))
+      );
+  }, []);
+
+  console.log(scheduleDetail);
+
+  let arr;
+  if (scheduleDetail) {
+    arr = JSON.parse(scheduleDetail);
+    console.log(arr);
+  }
+
+  // filtering the batches data
+  let sheduleData;
+  if (detail[0] && arr) {
+    sheduleData = arr.filter(
+      (sch) => sch.schedule.batchName === detail[0].batch_name
+    );
+    console.log(sheduleData[0].schedule.startDate);
+  }
   //getting the student for the selected batch
   useEffect(() => {
     supabase
       .from("batch_student_relation")
       .select("*")
       .then((response) => setEnrollStudents(response.data));
-  }, [enrollStudents]);
+  }, []);
 
   // filtering the batches data
   let batchStudents;
@@ -57,7 +84,7 @@ const BatchDetails = (props) => {
 
   return (
     <>
-      {detail[0] && (
+      {detail[0] && arr && (
         <div className="mt-10 sm:mt-20 mb-5">
           <div className="md:grid md:grid-cols-4 md:gap-6">
             <div className="mt-5 md:col-span-2 md:mt-0">
@@ -154,26 +181,33 @@ const BatchDetails = (props) => {
                           id=""
                           className="mt-1 ml-10 font-semibold w-2/6  "
                         >
-                          Date
+                          Start Date
                         </span>
                       </div>
                     </div>
                     <div className="col-span-6 sm:col-span-4 shadow-sm p-2">
                       <div className="flex  text-sm font-medium text-gray-700 ">
                         <span className="mt-1 font-semibold w-2/6   ">
-                          Monday to Friday{" "}
+                          {sheduleData[0].schedule.days.map((day) => (
+                            <span
+                              name="role"
+                              className="focus:outline-none px-3 border-x-2"
+                            >
+                              {day}
+                            </span>
+                          ))}
                         </span>
                         <span
                           id=""
                           className="mt-1 ml-10 font-semibold w-2/6  "
                         >
-                          9am to 11am
+                          {sheduleData[0].schedule.time}
                         </span>
                         <span
                           id=""
                           className="mt-1 ml-10 font-semibold w-2/6  "
                         >
-                          12 feb to 16 may
+                          {sheduleData[0].schedule.startDate}
                         </span>
                       </div>
                     </div>
@@ -253,13 +287,3 @@ const BatchDetails = (props) => {
 };
 
 export default BatchDetails;
-
-//for reference
-
-// useEffect(() => {
-//   supabase
-//     .from("batches")
-//     .select("*")
-//     .eq("id", props.batchId)
-//     .then((response) => setBatchDetail(response.data[0]));
-// }, []);
