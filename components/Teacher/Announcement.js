@@ -19,7 +19,7 @@ const Announcement = () => {
                           htmlFor="batch-name"
                           className="block text-sm font-medium text-gray-700"
                         >
-                          Titel
+                          Title
                         </label>
                         <input
                           type="text"
