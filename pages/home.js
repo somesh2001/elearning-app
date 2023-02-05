@@ -10,8 +10,7 @@ const Home = () => {
     <>
       {authCtx.isLoggedIn && (
         <div>
-          {/* <Sidebar /> */}
-          <NewSideBar />
+          <h1 className="text-center">Instructors Page</h1>
         </div>
       )}
     </>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import CardLayout from "../layout/CardLayout";
-import BatchDetails from "./BatchDetails";
 import CreateNewBatch from "./CreateNewBatch";
 import DisplayBatches from "./DisplayBatches";
 
@@ -47,7 +46,6 @@ const Batches = () => {
           </div>
           <div>
             {showCreateBatch && <CreateNewBatch />}
-            
             {!showCreateBatch && <DisplayBatches />}
           </div>
         </div>

@@ -12,6 +12,7 @@ const CourseCard = ({ title, book, id, path }) => (
 
       <div className="bg-gray-100 mt-4 py-2">
         <Link
+          // href={`${path}/batch-detail/${id}`}
           href={`${path}/batch-detail/${id}`}
           className="inline-flex justify-center rounded-md border border-transparent bg-dark-purple py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-dark-purple focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
@@ -21,19 +22,20 @@ const CourseCard = ({ title, book, id, path }) => (
     </div>
   </div>
 );
-const DisplayBatches = () => {
+
+const DisplayBatchesTeacher = () => {
   const auth = useContext(AuthContext);
 
   const router = useRouter();
   const path = router.pathname;
   console.log(path);
 
-  useEffect(() => {
-    supabase
-      .from("batches")
-      .select("*")
-      .then((res) => auth.setBatchesData(res.data));
-  }, []);
+  // useEffect(() => {
+  //   supabase
+  //     .from("batches")
+  //     .select("*")
+  //     .then((res) => auth.setBatchesData(res.data));
+  // }, []);
 
   console.log(auth.batchesList);
 
@@ -51,20 +53,20 @@ const DisplayBatches = () => {
       </div>
       <div className="w-full h-full  bg-slate-300">
         <div className="flex flex-wrap m-4 item-center mt-12 ml-16 pb-80 pt-10">
-          {auth.batchesList.map((batch) => (
-            <div className="w-1/3 p-4" key={batch.id}>
+          {/* {auth.batchesList.map((batch) => ( */}
+            <div className="w-1/3 p-4" >
               <CourseCard
-                title={batch.batch_name}
-                book={batch.book_name}
-                path={path}
-                id={batch.id}
+                title="Sample Batch Title"
+                book="Sample"
+                path="/teacher"
+                id="batch-detail-id"
               />
             </div>
-          ))}
+          {/* ))} */}
         </div>
       </div>
     </>
   );
 };
 
-export default DisplayBatches;
+export default DisplayBatchesTeacher;

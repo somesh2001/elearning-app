@@ -1,9 +1,10 @@
+import Sidebar from "@/components/Sidebar/Sidebar";
 import React from "react";
 
 const Instructor = () => {
   return (
     <div>
-      <h1 className="text-center">Instructors Page</h1>
+      <Sidebar />
     </div>
   );
 };
