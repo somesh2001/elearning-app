@@ -3,8 +3,10 @@ import { useState, useEffect, useRef, useContext } from "react";
 import Link from "next/link";
 import StudentListCard from "../layout/StudentListCard";
 import AuthContext from "../store/auth-context";
+import StudentListCardTeacher from "../layout/StudentListCardTeacher";
 
 const BatchDetails = (props) => {
+  const type = props.type;
   const [clicked, setClicked] = useState(false);
   const [showUserList, setshowUserList] = useState(false);
   const [batchDetail, setBatchDetail] = useState([]);
@@ -136,21 +138,26 @@ const BatchDetails = (props) => {
                         </span>
                       </div>
                     </div>
-                    <div className="col-span-6 sm:col-span-4 shadow-sm p-2">
-                      <div className="flex  text-sm font-medium text-gray-700">
-                        <span className="mt-1 font-normal w-2/5   ">
-                          Teacher Name{" "}
-                        </span>
-                        <span id="" className="mt-1 ml-5 font-semibold w-3/5  ">
-                          {" "}
-                          <img
-                            class="inline-block h-6 w-6 mx-3 rounded-full ring-2 ring-white"
-                            src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
-                          />
-                          {detail[0].teacher_email}
-                        </span>
+                    {type !== "teacher" && (
+                      <div className="col-span-6 sm:col-span-4 shadow-sm p-2">
+                        <div className="flex  text-sm font-medium text-gray-700">
+                          <span className="mt-1 font-normal w-2/5   ">
+                            Teacher Name{" "}
+                          </span>
+                          <span
+                            id=""
+                            className="mt-1 ml-5 font-semibold w-3/5  "
+                          >
+                            {" "}
+                            <img
+                              class="inline-block h-6 w-6 mx-3 rounded-full ring-2 ring-white"
+                              src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
+                            />
+                            {detail[0].teacher_email}
+                          </span>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
                 {/* <p className="text-red-400">Error </p> */}
@@ -247,7 +254,30 @@ const BatchDetails = (props) => {
                 </div>
               </div>
             )}
-            {!showUserList && (
+            {type === "teacher" && (
+              <div className="md:col-span-2 bg-white mr-10 shadow sm:rounded-md">
+                <div className="items-center justify-center ">
+                  <div class="grid grid-cols-4 gap-4  mb-5 ">
+                    <div class="col-span-3 ">
+                      <h3 className=" text-2xl p-4  font-medium leading-6 text-gray-700 mb-4 ">
+                        Mark Attendance
+                      </h3>
+                    </div>
+                  </div>
+
+                  {batchStudents.map((student) => (
+                    <StudentListCardTeacher
+                      email={student.student_id}
+                      type="teacher"
+                      operation="attendance"
+                      batch={detail[0].batch_name}
+                      click={setClicked}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+            {!showUserList && type !== "teacher" && (
               <div className="md:col-span-2 bg-white mr-10 shadow sm:rounded-md">
                 <div className="items-center justify-center ">
                   <div class="grid grid-cols-4 gap-4  mb-5 ">
@@ -279,6 +309,34 @@ const BatchDetails = (props) => {
                   <div class="align-end m-2"></div>
                 </div>
               </div>
+            )}
+            {type === "teacher" && (
+              <button
+                // onClick={addStudentToBatch}
+                type="submit"
+                className="group relative w-44 ml-44 flex justify-center
+            py-2 px-4 border border-transparent text-sm font-medium
+            rounded-md text-white bg-dark-purple 
+            focus:outline-none focus:ring-2 focus:ring-offset-2
+            focus:ring-orange-500 mt-4 mb-4"
+              >
+                <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
+                Start Session
+              </button>
+            )}
+            {type === "teacher" && (
+              <button
+                // onClick={addStudentToBatch}
+                type="submit"
+                className="group relative w-44 flex justify-center
+            py-2 px-4 border border-transparent text-sm font-medium
+            rounded-md text-white bg-dark-purple 
+            focus:outline-none focus:ring-2 focus:ring-offset-2
+            focus:ring-orange-500 mt-4 mb-4"
+              >
+                <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
+                End Session
+              </button>
             )}
           </div>
         </div>

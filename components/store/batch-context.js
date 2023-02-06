@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 
 const BatchContext = React.createContext({
+  setBatchDetail: (data) => {},
   batchDetailList: [],
 });
 
 export const BatchContextProvider = (props) => {
   const [bacthDetailList, setBacthDetailList] = useState();
 
-  const batchDetailHandler = (batchData) => {
+  const setBatchDetailHandler = (batchData) => {
     setBacthDetailList(batchData);
   };
 
   const ContextValue = {
-    batchDetailHandler,
+    setBatchDetail: setBatchDetailHandler,
+    bacthDetailList,
   };
 
   return (

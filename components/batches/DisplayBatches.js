@@ -27,6 +27,7 @@ const DisplayBatches = ({ emailUser }) => {
   const router = useRouter();
   const path = router.pathname;
 
+  //getting the data for batches
   console.log(emailUser);
   if (!emailUser) {
     console.log("outside");
