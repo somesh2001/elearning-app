@@ -4,7 +4,7 @@ import AuthContext from "@/components/store/auth-context";
 import TeacherSidebar from "@/components/Sidebar/TeacherSidebar";
 import AssignBatchesTeacher from "@/components/Teacher/AssignBatchesTeacher";
 
-const batches = () => {
+const index = () => {
   const authCtx = useContext(AuthContext);
   const type = authCtx.userType;
   const email = authCtx.userEmail;
@@ -30,4 +30,4 @@ const batches = () => {
   );
 };
 
-export default batches;
+export default index;

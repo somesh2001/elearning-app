@@ -1,4 +1,3 @@
-import AddUserTeacher from "@/components/Admin/AddUserTeacher";
 import Card from "@/components/layout/Card";
 import Navigation from "@/components/layout/Navigation";
 import AuthContext from "@/components/store/auth-context";

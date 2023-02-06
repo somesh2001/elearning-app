@@ -18,7 +18,7 @@ export default function Home() {
   const typeAdmin = authCtx.userType === "admin" ? true : false;
   const typeTeacher = authCtx.userType === "instructor" ? true : false;
 
-  if (typeTeacher) {
+  if (typeTeacher && loggedIn) {
     router.replace("/teacher/batches");
   }
 
