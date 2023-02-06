@@ -4,13 +4,16 @@ import Link from "next/link";
 import StudentListCard from "../layout/StudentListCard";
 import AuthContext from "../store/auth-context";
 import StudentListCardTeacher from "../layout/StudentListCardTeacher";
+import SessionPopup from "../layout/SessionPopup";
 
 const BatchDetails = (props) => {
   const type = props.type;
   const [clicked, setClicked] = useState(false);
+  const [sessionStarted, setSessionStarted] = useState(false);
   const [showUserList, setshowUserList] = useState(false);
   const [batchDetail, setBatchDetail] = useState([]);
   const [enrollStudents, setEnrollStudents] = useState([]);
+  const [attendenceStudent, setAttendenceStudent] = useState([]);
 
   const [scheduleDetail, setScheduleDetail] = useState();
 
@@ -75,6 +78,32 @@ const BatchDetails = (props) => {
       .then((response) => authCtx.setStudentsData(response.data));
   }, [clicked]);
 
+  //****************session****************** */
+
+  const setAttendanceHandler = (attendanceData) => {
+    setAttendenceStudent(attendanceData);
+  };
+
+  console.log(attendenceStudent);
+  const startSession = async () => {
+    setSessionStarted(true);
+    console.log("started");
+    let currentTime = new Date();
+    let currTime = currentTime.toLocaleString();
+
+    const { data1, errorTable } = await supabase
+      .from("session")
+      .insert({
+        starting_time: currTime,
+        module_name: detail[0].book_name,
+        students_present: { students: attendenceStudent },
+        batch_id: detail[0].batch_name,
+      })
+      .select();
+  };
+
+  console.log(sessionStarted);
+
   const closeList = () => {
     setshowUserList(false);
     setClicked(false);
@@ -85,6 +114,7 @@ const BatchDetails = (props) => {
 
   return (
     <>
+      {sessionStarted && <SessionPopup session={setSessionStarted} />}
       {detail[0] && arr && (
         <div className="mt-10 sm:mt-20 mb-5">
           <div className="md:grid md:grid-cols-4 md:gap-6">
@@ -264,16 +294,12 @@ const BatchDetails = (props) => {
                       </h3>
                     </div>
                   </div>
-
-                  {batchStudents.map((student) => (
-                    <StudentListCardTeacher
-                      email={student.student_id}
-                      type="teacher"
-                      operation="attendance"
-                      batch={detail[0].batch_name}
-                      click={setClicked}
-                    />
-                  ))}
+                  <StudentListCardTeacher
+                    type="teacher"
+                    operation="attendance"
+                    enrollStudents={batchStudents}
+                    setAttendance={setAttendanceHandler}
+                  />
                 </div>
               </div>
             )}
@@ -312,9 +338,9 @@ const BatchDetails = (props) => {
             )}
             {type === "teacher" && (
               <button
-                // onClick={addStudentToBatch}
+                onClick={startSession}
                 type="submit"
-                className="group relative w-44 ml-44 flex justify-center
+                className="group relative w-full ml-44 flex justify-center
             py-2 px-4 border border-transparent text-sm font-medium
             rounded-md text-white bg-dark-purple 
             focus:outline-none focus:ring-2 focus:ring-offset-2
@@ -322,20 +348,6 @@ const BatchDetails = (props) => {
               >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
                 Start Session
-              </button>
-            )}
-            {type === "teacher" && (
-              <button
-                // onClick={addStudentToBatch}
-                type="submit"
-                className="group relative w-44 flex justify-center
-            py-2 px-4 border border-transparent text-sm font-medium
-            rounded-md text-white bg-dark-purple 
-            focus:outline-none focus:ring-2 focus:ring-offset-2
-            focus:ring-orange-500 mt-4 mb-4"
-              >
-                <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
-                End Session
               </button>
             )}
           </div>

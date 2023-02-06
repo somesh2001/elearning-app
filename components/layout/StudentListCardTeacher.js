@@ -3,8 +3,7 @@ import supabase from "@/supabaseClient";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-const StudentListCardTeacher = ({ email }) => {
-  const [nameUser, setName] = useState();
+const StudentListCardTeacher = ({ email, setAttendance, enrollStudents }) => {
   const [selectedStudent, setSelectedStudent] = useState([]);
 
   const handleChange = (event) => {
@@ -13,47 +12,42 @@ const StudentListCardTeacher = ({ email }) => {
       setSelectedStudent([...selectedStudent, student]);
     } else {
       setSelectedStudent(
-        selectedStudent.filter((selectedStudent) => selectedStudent !== student)
+        selectedStudent.filter(
+          (selectedStudents) => selectedStudents !== student
+        )
       );
     }
   };
-  useEffect(() => {
-    supabase
-      .from("students")
-      .select("name")
-      .eq("email", email)
-      .then((res) => setName(res.data));
-  }, []);
-  console.log(selectedStudent);
+  setAttendance(selectedStudent);
+
   return (
     <>
-      {nameUser && (
+      {enrollStudents && (
         <div className="m-2">
-          <div className="flex  text-sm font-medium text-gray-700 shadow sm:rounded-md p-2 ">
-            {nameUser.map((user) => (
+          {enrollStudents.map((user) => (
+            <div className="flex  text-sm font-medium text-gray-700 shadow sm:rounded-md p-2 ">
               <span className="mt-1 font-normal w-4/5  ">
                 <img
                   class="inline-block h-8 w-8 mx-3 rounded-full ring-2 ring-white"
                   src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
                 />
-                {user.name}
+                {user.student_id}
               </span>
-            ))}
-            {nameUser.map((user) => (
+
               <span id="" className="mt-1 ml-10 font-semibold w-2/5  ">
                 <span className="mr-auto  text-gray-500 p-2   hover:text-gray-700   font-normal ">
                   Mark Attendance
                 </span>
                 <input
                   type="checkbox"
-                  value={user.name}
+                  value={user.student_id}
                   onChange={handleChange}
-                  checked={selectedStudent.includes(user.name)}
+                  checked={selectedStudent.includes(user.student_id)}
                   className="m-1"
                 />
               </span>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       )}
     </>

@@ -3,10 +3,14 @@
 import supabase from "@/supabaseClient";
 
 async function handler(req, res) {
-  const data = req.body;
+  if (req.method === "GET") {
+    console.log();
+    const data = req.body;
 
-  const response = await supabase.from("batches").select("*");
-  res.status(200).json({ message: response.data });
+    const response = await supabase.from("batches").select("*");
+    console.log(response.data);
+    res.json(response.data);
+  }
 }
 
 export default handler;
