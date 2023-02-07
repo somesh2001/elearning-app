@@ -1,16 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import HomeActivityCard from "../layout/HomeActivityCard";
-<p dir="rtl" lang="ar">
-  {" "}
-  ي و ه ن م ل ك ق ف غ ع ظ ط ض ص ش س ز ر ذ د خ ح ج ث ت ب ا
-</p>;
+
 const Alphabates = [
   { letter: "خ", title: "Khaa" },
-  { letter: "ح", title: "haa" },
-  { letter: "ج", title: "jeem" },
-  { letter: "ث", title: "thaa" },
-  { letter: "ت", title: "taa" },
-  { letter: "ب", title: "baa" },
+  { letter: "ح", title: "Haa" },
+  { letter: "ج", title: "Jeem" },
+  { letter: "ث", title: "Thaa" },
+  { letter: "ت", title: "Taa" },
+  { letter: "ب", title: "Baa" },
   { letter: "ا", title: "Alif" },
   { letter: "س", title: "Saad" },
   { letter: "ش", title: "Sheen" },
@@ -34,7 +31,11 @@ const Alphabates = [
   { letter: "ل", title: "Laam" },
   { letter: "ك", title: "Kaaf" },
 ];
+
 const HomeActivity = () => {
+  const [letterName, setLetterName] = useState();
+
+  console.log(letterName);
   return (
     <>
       <div className=" text-center">
@@ -48,10 +49,14 @@ const HomeActivity = () => {
         </h2>
         <span className=" "></span>
       </div>
-      <div className="">
-        <div className="flex flex-wrap m-4 justify-center">
+      <div className="px-56">
+        <div className="flex flex-wrap m-4 justify-center ">
           {Alphabates.map((alphabate) => (
-            <HomeActivityCard name={alphabate.letter} title={alphabate.title} />
+            <HomeActivityCard
+              name={alphabate.letter}
+              title={alphabate.title}
+              letter={setLetterName}
+            />
           ))}
         </div>
       </div>
